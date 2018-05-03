@@ -1,13 +1,17 @@
 CREATE TABLE users (
     autoid INT AUTO_INCREMENT PRIMARY KEY, 
     UserID VARCHAR(30) NOT NULL,
-    UserName VARCHAR(60) NOT NULL, 
-    Sex CHAR(2) NOT NULL,MaritalStatus VARCHAR(20) NOT NULL,
-    pwd VARCHAR(150) NOT NULL，Birthday DATE NOT NBULL,
-    IDNo VARCHAR(30) NOT NULL,
-    Address VARCHAR(200) NOT NULL，
-    email VARCHAR(60) NOT NULL,
-    Nation VARCHAR(30) NOT NULL,status TINYINT NOT NULL,
+    UserName VARCHAR(60) NOT NULL,
+    Tel VARCHAR(30) NOT NULL,
+    Sex CHAR(2),
+    MaritalStatus VARCHAR(20) ,
+    pwd VARCHAR(150) NOT NULL，
+    Birthday DATE ,
+    IDNo VARCHAR(30) ,
+    Address VARCHAR(200) ，
+    email VARCHAR(60) ,
+    Nation VARCHAR(30),
+    status TINYINT NOT NULL,
     roles INT NOT NULL,
     CreateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CreatorID VARCHAR(30) NOT NULL,
@@ -15,10 +19,11 @@ CREATE TABLE users (
 ) COMMENT='用户数据表'
 
 CREATE TABLE ContactList (
-    autoid INT AUTO_INCREMENT PRIMARY KEY, UserID VARCHAR(30) NOT NULL, 
-    cName VARCHAR(30) NOT NULL,
-    TelNo VARCHAR(30) NOT NULL,
-    RelationShip VARCHAR(30) NOT NULL,
+    autoid INT AUTO_INCREMENT PRIMARY KEY, 
+    UserID VARCHAR(30) NOT NULL, 
+    cName VARCHAR(30) ,
+    TelNo VARCHAR(30) ,
+    RelationShip VARCHAR(30),
     INDEX UserID(UserID)
 ) COMMENT ='联系人列表'
 
@@ -30,11 +35,14 @@ CREATE TABLE TrainingRecords (
     CreateTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     UserID VARCHAR(30) NOT NULL, 
     UserName VARCHAR(30) NOT NULL, 
-    ItemName VARCHAR(200) NOT NULL,
-    FromDate DATE NOT NULL, EndDate DATE NOT NULL, 
-    Teacher VARCHAR(30) NOT NULL, Place VARCHAR(60) NOT NULL, 
-    Score VARCHAR(30) NOT NULL, Remark VARCHAR(200) NOT NULL, 
-    INDEX kind(kind),INDEX CreateTime(CreateTime),
+  <!--   ItemName VARCHAR(200) NOT NULL, -->
+    Date DATE NOT NULL, 
+    Teacher VARCHAR(30) NOT NULL, 
+    Place VARCHAR(60) NOT NULL, 
+    Score VARCHAR(30) NOT NULL, 
+    Remark VARCHAR(200) NOT NULL, 
+    INDEX kind(kind),
+    INDEX CreateTime(CreateTime),
     INDEX FromDate(FromDate)
 ) COMMENT '培训记录'
 
@@ -56,8 +64,8 @@ CREATE TABLE relativepictures (
     ID VARCHAR(30) NOT NULL, 
     Title VARCHAR(100) NOT NULL, 
     ImageID INT NOT NULL,
-    CreatorID VARCHAR(10) NOT NULL, 
-    CreatorName VARCHAR(30) NOT NULL, 
+   <!--  CreatorID VARCHAR(10) NOT NULL, 
+    CreatorName VARCHAR(30) NOT NULL, --> 
     CreateTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     INDEX ID(kind,ID)
 ) COMMENT ='相关图片资料'
@@ -86,3 +94,24 @@ CREATE TABLE EmergencyEvents (
     result TINYINT NOT NULL,
     remark VARCHAR(100) NOT NULL
 ) COMMENT ='急救事件'
+
+CREATE TABLE Responsors (
+    autoid INT AUTO_INCRMENT PRIMARY KEY, 
+    eeID INT NOT NULL, 
+    UserID VARCHAR(30) NOT NULL, 
+    UserName VARCHAR(30) NOT NULL, 
+    Latitude NUMERIC(16,8) NOT NULL, 
+    Longitude NUMERIC(16,8) NOT NULL, 
+    ArriveTime DATEIMTE NOT NULL, 
+    remark VARCHAR(100) NOT NULL,
+    INDEX eeID(eeID)
+) COMMENT ='急救响应者'
+
+CREATE TABLE Position(
+    autoid INT AUTO_INCRMENT PRIMARY KEY, 
+    UserID VARCHAR(10) NOT NULL,
+    Latitude NUMERIC(16,8) NOT NULL, 
+    Longitude NUMERIC(16,8) NOT NULL
+    CreateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Uploaded TINYINT NOT NULL
+) COMMENT ='志愿者实时位置'
