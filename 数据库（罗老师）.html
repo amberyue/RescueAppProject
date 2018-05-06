@@ -1,3 +1,4 @@
+//有些信息健康监测用户不会一次性添加，会有空的情况 （健康监测用户我的设想是用联系电话作为账号，所以加上tel信息）
 CREATE TABLE users (
     autoid INT AUTO_INCREMENT PRIMARY KEY, 
     UserID VARCHAR(30) NOT NULL,
@@ -29,13 +30,13 @@ CREATE TABLE ContactList (
 
 CREATE TABLE TrainingRecords (
     autoid INT AUTO_INCREMENT PRIMARY KEY,
-    kind TINYINT NOT NULL,
+ <!--    kind TINYINT NOT NULL, -->  //本项目培训部分可能只有一种种类
     CreatorID VARCHAR(30) NOT NULL,
     CreatorName VARCHAR(30) NOT NULL, 
     CreateTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     UserID VARCHAR(30) NOT NULL, 
     UserName VARCHAR(30) NOT NULL, 
-  <!--   ItemName VARCHAR(200) NOT NULL, -->
+  <!--   ItemName VARCHAR(200) NOT NULL, -->  //项目名不是很清楚是什么意思
     Date DATE NOT NULL, 
     Teacher VARCHAR(30) NOT NULL, 
     Place VARCHAR(60) NOT NULL, 
@@ -65,7 +66,7 @@ CREATE TABLE relativepictures (
     Title VARCHAR(100) NOT NULL, 
     ImageID INT NOT NULL,
    <!--  CreatorID VARCHAR(10) NOT NULL, 
-    CreatorName VARCHAR(30) NOT NULL, --> 
+    CreatorName VARCHAR(30) NOT NULL, --> //创建图片的用户，应该就是Id的那个用户
     CreateTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     INDEX ID(kind,ID)
 ) COMMENT ='相关图片资料'
@@ -77,6 +78,7 @@ CREATE TABLE imagelib (
 ) COMMENT='图片库'
 
 CREATE TABLE aeds (
+    aedName VARCHAR NOT NULL，      //加上名称容易区别
     autoid INT AUTO_INCREMENT PRIMARY KEY,
     status TINYINT NOT NULL,
     Latitude NUMERIC(16,8) NOT NULL, 
@@ -107,11 +109,13 @@ CREATE TABLE Responsors (
     INDEX eeID(eeID)
 ) COMMENT ='急救响应者'
 
+//志愿者在后台传输的位置信息上传的表单
 CREATE TABLE Position(
     autoid INT AUTO_INCRMENT PRIMARY KEY, 
     UserID VARCHAR(10) NOT NULL,
     Latitude NUMERIC(16,8) NOT NULL, 
     Longitude NUMERIC(16,8) NOT NULL
     CreateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ,
     Uploaded TINYINT NOT NULL
 ) COMMENT ='志愿者实时位置'
